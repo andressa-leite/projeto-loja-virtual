@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
+import Login from '../../pages/Login';
 
 const drawerWidth = 240;
 
@@ -138,6 +139,16 @@ export default function PersistentDrawerLeft() {
                   <ShoppingBasketIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Products"} />
+              </ListItemButton>
+            </ListItem>
+        </Link>
+        <Link to="/Login">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingBasketIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Login"} />
               </ListItemButton>
             </ListItem>
         </Link>
