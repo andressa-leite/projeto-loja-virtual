@@ -7,16 +7,24 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+ 
 
 function Login() {
+    const navigate = useNavigate();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
+        const data = new FormData(event.currentTarget); 
+
+        axios.post('http://localhost:4200/api/users/login', {
           email: data.get('email'),
           password: data.get('password'),
-        });
+        }).then( res => {
+          navigate("/products")
+          localStorage.setItem('token', res.data)
+          
+        }, err => console.log('err', err.message))
       };
   return (
     <Container sx={{width: "30%"}}>
