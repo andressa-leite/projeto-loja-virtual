@@ -16,11 +16,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
+import { Avatar } from '@mui/material';
+import { Tooltip } from '@mui/material';
+
 import Login from '../../pages/Login';
 
 const drawerWidth = 240;
@@ -83,7 +85,7 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -96,11 +98,24 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
+
+
+           
+              
+              <Typography variant="h6" noWrap component="div" sx={8}>
+                Loja Virtual
+                </Typography>
+               
+                
+             
+                  
+             
+            
+          
+          
         </Toolbar>
       </AppBar>
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -121,6 +136,24 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
+        <Link to="/User">
+          <ListItemButton>
+             
+              <IconButton>
+                <ListItemIcon>
+                <Tooltip title="Open settings">
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
+                    </Avatar>
+                </Tooltip>
+                </ListItemIcon>
+              </IconButton>
+
+                
+             
+              <ListItemText primary={"Account"} />
+          </ListItemButton>
+         </Link>
+
         <Link to="/">
             <ListItem disablePadding>
               <ListItemButton>
@@ -146,9 +179,9 @@ export default function PersistentDrawerLeft() {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <ShoppingBasketIcon />
+                  <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Login"} />
+                <ListItemText primary={"Login/ Logout"} />
               </ListItemButton>
             </ListItem>
         </Link>

@@ -6,30 +6,48 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
  
 
-function Login() {
+function CreateUser() {
     const navigate = useNavigate();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget); 
 
-        axios.post('http://localhost:4200/api/users/login', {
+        axios.post('http://localhost:4200/api/users', {
+          name: data.get('name'),
           email: data.get('email'),
           password: data.get('password'),
         }).then( res => {
           navigate("/products")
-          localStorage.setItem('token', res.data)
+          localStorage.setItem('token', JSON.stringify(res.data))
           
-        }, err => console.log('err', err.message))
+        }, err => {
+            alert("Verifique se os dados foram preenchidos corretamente")
+            console.log('err', err.message)
+        })
       };
   return (
-    <Container sx={{width: "30%"}}>
+    <Container sx={{width: "35%"}}>
+      <Typography variant="h4" component="h4">
+        Create a new user account
+    </Typography>
     <Box component="form" alignItems="center"  justifyContent="center"
      noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+              />
+
               <TextField
                 margin="normal"
                 required
@@ -50,34 +68,19 @@ function Login() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+           
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Create Account
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/users/create" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
+              
             </Box>
             </Container>
   )
 }
 
-export default Login
+export default CreateUser; 
