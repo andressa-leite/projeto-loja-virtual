@@ -22,6 +22,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
 import { Avatar } from '@mui/material';
 import { Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import Login from '../../pages/Login';
 
@@ -75,6 +76,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -83,6 +85,16 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const isLogged = () => {
+    return localStorage.getItem('data')
+  }
+
+  const logOut = () => {
+   
+    localStorage.removeItem('data');
+    navigate("/login")
+  }
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -136,7 +148,7 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-        <Link to="/User">
+        <Link to="/users/account">
           <ListItemButton>
              
               <IconButton>
@@ -175,16 +187,27 @@ export default function PersistentDrawerLeft() {
               </ListItemButton>
             </ListItem>
         </Link>
-        <Link to="/Login">
+        {!isLogged() ? 
+          <Link to="/Login">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Login"} />
+                </ListItemButton>
+              </ListItem>
+          </Link>
+        :
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={logOut}>
                 <ListItemIcon>
                   <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Login/ Logout"} />
+                <ListItemText primary={"Logout"} />
               </ListItemButton>
             </ListItem>
-        </Link>
+        }
         </List>
         {/* <Divider /> */}
         

@@ -22,7 +22,8 @@ function Login() {
           password: data.get('password'),
         }).then( res => {
           navigate("/products")
-          localStorage.setItem('token', res.data)
+          // localStorage.setItem('token', token)
+          localStorage.setItem('data', JSON.stringify(res.data))
           
         }, err => console.log('err', err.message))
       };

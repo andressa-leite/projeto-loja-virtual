@@ -22,10 +22,10 @@ function CreateUser() {
           email: data.get('email'),
           password: data.get('password'),
         }).then( res => {
-          navigate("/products")
-          localStorage.setItem('token', JSON.stringify(res.data))
-          
-        }, err => {
+           localStorage.setItem('token', JSON.stringify(res.data))
+           navigate("/products")
+      
+        }).catch(err => {
             alert("Verifique se os dados foram preenchidos corretamente")
             console.log('err', err.message)
         })

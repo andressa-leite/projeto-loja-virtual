@@ -7,7 +7,7 @@ import Product from "./componentes/Product/Product";
 import PersistentDrawerLeft from "./componentes/Nav/Nav";
 import Login from "./pages/Login";
 import CreateUser from "./pages/CreateUser/CreateUser";
-import User from "./componentes/User/User";
+import Account from "./pages/Account/Account";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/products/:id" element={<Product />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/users/create" element={<CreateUser />}></Route>
-          <Route path="/users/user" element={<User />}></Route>
+          <Route path="/users/account" element={<Account />}></Route>
         </Routes>
       </Router>
     </div>
