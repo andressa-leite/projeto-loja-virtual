@@ -13,7 +13,8 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateUser() {
     const navigate = useNavigate();
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    
+    const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget); 
 
