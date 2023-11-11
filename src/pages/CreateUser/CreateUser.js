@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,9 +9,12 @@ import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Alert}  from '@mui/material';
  
 
 function CreateUser() {
+    const [hideMsg, setHideMsg] = useState(true);
+
     const navigate = useNavigate();
     
     const handleSubmit = (event) => {
@@ -23,8 +26,9 @@ function CreateUser() {
           email: data.get('email'),
           password: data.get('password'),
         }).then( res => {
-           localStorage.setItem('token', JSON.stringify(res.data))
-           navigate("/products")
+            setHideMsg(false)
+           localStorage.setItem('data', JSON.stringify(res.data))
+          // navigate("/products")
       
         }).catch(err => {
             alert("Verifique se os dados foram preenchidos corretamente")
@@ -33,6 +37,7 @@ function CreateUser() {
       };
   return (
     <Container sx={{width: "35%"}}>
+      { !hideMsg && <Alert severity="success">User created!</Alert>}
       <Typography variant="h4" component="h4">
         Create a new user account
     </Typography>

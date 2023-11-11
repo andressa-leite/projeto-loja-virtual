@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { Avatar } from '@mui/material';
 import { Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import Login from '../../pages/Login';
 
@@ -76,11 +77,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = React.useState({});
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    	setUser(JSON.parse(localStorage.getItem('data'))?.user)
+  }, [])
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -154,7 +160,7 @@ export default function PersistentDrawerLeft() {
               <IconButton>
                 <ListItemIcon>
                 <Tooltip title="Open settings">
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
+                    <Avatar alt="Avatar" src={user?.avatar ? user.avatar : "/static/images/avatar/2.jpg"}>
                     </Avatar>
                 </Tooltip>
                 </ListItemIcon>

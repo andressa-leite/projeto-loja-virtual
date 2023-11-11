@@ -14,6 +14,7 @@ import axios from 'axios';
 
 
 function Account() {
+  /* ****************************** */
   const [user, setUser] = useState({
       name:'', 
       email: '',
@@ -27,9 +28,11 @@ function Account() {
     console.log(data)
   },[])
 
+  /* ****************************** */
+
   const handleSubmit = 
   (event) => {
-     event.preventDefault();
+     event.preventDefault(); 
       axios.put(`http://localhost:4200/api/users/${user._id}`, {
       email: user.email,
       name: user.name,
