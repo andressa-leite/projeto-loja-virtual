@@ -1,17 +1,18 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+//import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+//import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid, TextField} from '@mui/material';
 import { Link } from "react-router-dom";
 
 
 
-function List(){
+function ListProducts(){
+    
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState([]);
@@ -19,7 +20,8 @@ function List(){
     const [search, setSearch] = useState('');
 
     useEffect(()=>{
-        axios.get('https://fakestoreapi.com/products').then(res=>{
+        
+        axios.get('http://localhost:4200/api/products').then(res=>{
             setData(res.data)
             console.log(res)
             setLoading(false)
@@ -32,7 +34,7 @@ function List(){
     useEffect(()=>{
         if(search) {
             setLoading(true)
-            axios.get('https://fakestoreapi.com/products/category/jewelery').then(res=>{
+            axios.get(`http://localhost:4200/api/products?search=${search}`).then(res=>{
                 setData(res.data)
                 console.log(res)
                 setLoading(false)
@@ -90,4 +92,4 @@ function List(){
                         <p>{item.description}</p>
                 </div> */}
 
-export default List;
+export default ListProducts;

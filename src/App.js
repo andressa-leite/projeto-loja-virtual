@@ -1,29 +1,40 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import List from "./componentes/List/List";
+import ListProducts from "./componentes/ListProducts/ListProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Product from "./componentes/Product/Product";
 import PersistentDrawerLeft from "./componentes/Nav/Nav";
 import Login from "./pages/Login";
 import CreateUser from "./pages/CreateUser/CreateUser";
 import Account from "./pages/Account/Account";
+import { AppContext } from "./utils/AplicationContext";
+
+/* tentei carregar uma foto no avatar não deu certo */
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <PersistentDrawerLeft />
+  const [context, setContext] = useState({ user: null, cart: null });
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    setContext({ user: data?.user });
+  }, []);
 
-        <Routes>
-          <Route path="/products" element={<List />}></Route>
-          <Route path="/products/:id" element={<Product />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/users/create" element={<CreateUser />}></Route>
-          <Route path="/users/account" element={<Account />}></Route>
-        </Routes>
-      </Router>
-    </div>
+  return (
+    <AppContext.Provider value={{ context, setContext }}>
+      <div className="App">
+        <Router>
+          <PersistentDrawerLeft />
+
+          <Routes>
+            <Route path="/products" element={<ListProducts />}></Route>
+            <Route path="/products/:id" element={<Product />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/users/create" element={<CreateUser />}></Route>
+            <Route path="/users/account" element={<Account />}></Route>
+          </Routes>
+        </Router>
+      </div>
+    </AppContext.Provider>
   );
 }
 

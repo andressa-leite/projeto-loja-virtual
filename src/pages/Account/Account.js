@@ -9,12 +9,15 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import axios from 'axios';
+import { AppContext } from "../../utils/AplicationContext";
+import { useContext } from 'react';
 // import { PhotoCamera } from '@material-ui/icons/PhotoCamera';
 // import { IconButton } from '@mui/material';
 
 
 function Account() {
   /* ****************************** */
+  const aplicationContext = useContext(AppContext);
   const [user, setUser] = useState({
       name:'', 
       email: '',
@@ -24,7 +27,9 @@ function Account() {
   )
   useEffect(() => {
     const data = localStorage.getItem('data')
+      /* ****************************** */
     setUser(JSON.parse(data).user)
+      /* ****************************** */
     console.log(data)
   },[])
 
@@ -38,8 +43,13 @@ function Account() {
       name: user.name,
       image: user.image,
     }).then( res => {
-      alert('User has been updated!')
-      localStorage.setItem('data', JSON.stringify(res.data))
+      alert('User has been updated!');
+      let previousData = JSON.parse(localStorage.getItem('data'));
+      previousData.user = res.data.data;
+      localStorage.setItem('data', JSON.stringify(previousData))
+        /* ****************************** */
+      aplicationContext.setContext({ user: res.data.data });
+        /* ****************************** */
     }, err => console.log('err', err.message))
   };
 
@@ -70,7 +80,7 @@ function Account() {
                 type="name"
                 id="name"
                 autoComplete="name"
-                value={user.name}
+                value={user?.name}
                 onChange={(e) => setUser({...user, name: e.target.value })}
               />
               <TextField
@@ -82,7 +92,7 @@ function Account() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value={user.email}
+                value={user?.email}
                 onChange={(e) => setUser({...user, email: e.target.value })}
               />
               <input
@@ -114,8 +124,8 @@ function Account() {
             </Box>
             </Container>
 
-    <div>{user.name}</div>
-    <div>{user.email}</div>
+    <div>{user?.name}</div>
+    <div>{user?.email}</div>
    
     </>
   )
