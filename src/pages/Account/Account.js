@@ -65,9 +65,9 @@ function Account() {
   return (
     <>
    
-    <Container sx={{width: "30%"}}>
+    <Container sx={{width: "40%"}}>
     <Typography variant="h3" component="h3">
-      Update User
+      Account Settings
     </Typography>
     <Box component="form" alignItems="center"  justifyContent="center"
      noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>

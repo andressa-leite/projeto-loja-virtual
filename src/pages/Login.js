@@ -15,7 +15,6 @@ function Login() {
     /* ****************************** */
   const aplicationContext = useContext(AppContext);
     /* ****************************** */
-  console.log("aplicationContext =>" + aplicationContext);
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
