@@ -103,7 +103,7 @@ function ListProducts() {
                       >
                         {item.description.length <= 55
                           ? item.description
-                          : item.description.substr(0, 55) + "..."}
+                          : item.description.substr(0, 55) + "..."} 
                         {/* {item.description} */}
                       </Typography>
                       <Typography variant="h6">{"$" + item.price}</Typography>

@@ -23,10 +23,10 @@ import { Link } from "react-router-dom";
 import { Avatar, Grid } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../utils/AplicationContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { ShoppingCart } from "@mui/icons-material";
+import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
 
 const drawerWidth = 240;
 
@@ -78,8 +78,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const aplicationContext = useContext(AppContext);
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [user, setUser] = React.useState({});
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
+  const [openShoppingCartList, setOpenShoppingCartList] = useState(false)
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -128,13 +129,14 @@ export default function PersistentDrawerLeft() {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton>
-                <ShoppingCartIcon  sx={{color: "#FFFFFF"}}/>
+              <IconButton onClick={()=>setOpenShoppingCartList(!openShoppingCartList)}>
+                <ShoppingCartIcon sx={{ color: "#FFFFFF" }} />
               </IconButton>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
+      {openShoppingCartList && <ShoppingCartList />}
 
       <Drawer
         sx={{
@@ -178,7 +180,7 @@ export default function PersistentDrawerLeft() {
                   </ListItemIcon>
                 </IconButton>
 
-                <ListItemText primary= {aplicationContext.context?.user?.name} />
+                <ListItemText primary={aplicationContext.context?.user?.name} />
               </ListItemButton>
             </Link>
           )}
@@ -197,7 +199,7 @@ export default function PersistentDrawerLeft() {
           <Link to="/products">
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemIcon >
+                <ListItemIcon>
                   <ShoppingBasketIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Products"} />

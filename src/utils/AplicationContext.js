@@ -1,2 +1,2 @@
 import { createContext } from 'react';
-export const AppContext = createContext({user: null, cart: null});
+export const AppContext = createContext({user: null, shoppingCart: []});

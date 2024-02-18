@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Box, Button, Card, Rating, Typography } from "@mui/material";
 import { AppContext } from "../../utils/AplicationContext";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import ShoppingCart from "../ShoppingCartList/ShoppingCartList";
 
 function Product() {
   const aplicationContext = useContext(AppContext);
@@ -27,7 +27,7 @@ function Product() {
   }, []);
   
   const addToCart = () => {
-    aplicationContext.setContext({ shoppingCart: [ data]  });
+    aplicationContext.setContext({ user: aplicationContext.context.user, shoppingCart: [ ...aplicationContext.context.shoppingCart, data]  });
   }
 
   return (
@@ -39,7 +39,7 @@ function Product() {
           sx={{ display: "flex" }}
           style={{ border: "none", boxShadow: "none" }}
         >
-      <ShoppingCart/>
+      {/* <ShoppingCart/> */}
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box

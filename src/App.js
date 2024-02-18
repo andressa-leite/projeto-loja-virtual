@@ -17,7 +17,7 @@ function App() {
   const [context, setContext] = useState({ user: null, shoppingCart: [] });
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("data"));
-    setContext({ user: data?.user });
+    setContext({ user: data?.user, shoppingCart: [] });
   }, []);
 
   return (
