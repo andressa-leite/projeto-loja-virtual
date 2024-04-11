@@ -27,7 +27,19 @@ function Product() {
   }, []);
   
   const addToCart = () => {
-    aplicationContext.setContext({ user: aplicationContext.context.user, shoppingCart: [ ...aplicationContext.context.shoppingCart, data]  });
+    const filterShoppingCartList = (arr) => {
+      const newArray =[]
+      arr.forEach(element => {
+        if (newArray.map((item)=>item._id).includes(element._id)) { //toDo - não está funcionando
+          const index = newArray.map((item)=>item._id).indexOf(element._id);
+          newArray[index].quantity += 1  
+        } else {
+          newArray.push(element)
+        }
+      });
+      return newArray;
+    }
+    aplicationContext.setContext({ user: aplicationContext.context.user, shoppingCart: filterShoppingCartList([ ...aplicationContext.context.shoppingCart, {...data, quantity:1}])  });
   }
 
   return (

@@ -27,6 +27,8 @@ import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../utils/AplicationContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+//import MaisMenos from "../ShoppingCartList/MaisMenos"
 
 const drawerWidth = 240;
 
@@ -80,7 +82,7 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
-  const [openShoppingCartList, setOpenShoppingCartList] = useState(false)
+  const [openShoppingCartList, setOpenShoppingCartList] = useState(false);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -103,6 +105,13 @@ export default function PersistentDrawerLeft() {
   const logOut = () => {
     localStorage.removeItem("data");
     navigate("/login");
+  };
+
+  const getShoppingCartTotal = () => {
+    const products = aplicationContext.context?.shoppingCart;
+    return aplicationContext.context?.shoppingCart?.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.quantity
+    );
   };
 
   return (
@@ -129,8 +138,24 @@ export default function PersistentDrawerLeft() {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton onClick={()=>setOpenShoppingCartList(!openShoppingCartList)}>
-                <ShoppingCartIcon sx={{ color: "#FFFFFF" }} />
+              <IconButton
+                onClick={() => setOpenShoppingCartList(!openShoppingCartList)}
+              >
+                {/* Badge = number of items inside shopping cart */}
+                <Badge
+                  color="info"
+                  badgeContent={
+                    aplicationContext.context?.shoppingCart?.length > 0
+                      ? aplicationContext.context?.shoppingCart?.reduce(
+                          (accumulator, currentValue) =>
+                            accumulator + currentValue.quantity,
+                          0
+                        )
+                      : 0
+                  }
+                >
+                  <ShoppingCartIcon sx={{ color: "white" }} />
+                </Badge>
               </IconButton>
             </Grid>
           </Grid>
@@ -228,7 +253,6 @@ export default function PersistentDrawerLeft() {
             </ListItem>
           )}
         </List>
-        {/* <Divider /> */}
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

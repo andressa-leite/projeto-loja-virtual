@@ -103,8 +103,7 @@ function ListProducts() {
                       >
                         {item.description.length <= 55
                           ? item.description
-                          : item.description.substr(0, 55) + "..."} 
-                        {/* {item.description} */}
+                          : item.description.substr(0, 55) + "..."}
                       </Typography>
                       <Typography variant="h6">{"$" + item.price}</Typography>
                     </CardContent>
@@ -122,10 +121,9 @@ function ListProducts() {
                       <Box
                         sx={{
                           "& > legend": { mt: 2 },
-                          paddingRight: 1
+                          paddingRight: 1,
                         }}
                       >
-                        {/* <Typography component="legend">{item.rating.count}</Typography> */}
                         <Rating
                           name="read-only"
                           value={item.rating.rate}
@@ -143,14 +141,6 @@ function ListProducts() {
       </Grid>
     </div>
   );
-}
-
-{
-  /* <div>
-                        <p>{item.title}</p>
-                        <img src={item.image} /> 
-                        <p>{item.description}</p>
-                </div> */
 }
 
 export default ListProducts;

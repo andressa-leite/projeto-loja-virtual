@@ -25,7 +25,9 @@ export const Search = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
   }));
-  
+
+
+
   export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
