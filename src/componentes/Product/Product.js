@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Box, Button, Card, Rating, Typography } from "@mui/material";
 import { AppContext } from "../../utils/AplicationContext";
-import ShoppingCart from "../ShoppingCartList/ShoppingCartList";
 
 function Product() {
   const aplicationContext = useContext(AppContext);
@@ -30,7 +29,7 @@ function Product() {
     const filterShoppingCartList = (arr) => {
       const newArray =[]
       arr.forEach(element => {
-        if (newArray.map((item)=>item._id).includes(element._id)) { //toDo - não está funcionando
+        if (newArray.map((item)=>item._id).includes(element._id)) { 
           const index = newArray.map((item)=>item._id).indexOf(element._id);
           newArray[index].quantity += 1  
         } else {
@@ -51,8 +50,6 @@ function Product() {
           sx={{ display: "flex" }}
           style={{ border: "none", boxShadow: "none" }}
         >
-      {/* <ShoppingCart/> */}
-
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box
               sx={{

@@ -5,6 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function ShoppingCartList() {
   const aplicationContext = useContext(AppContext);
@@ -25,11 +27,11 @@ function ShoppingCartList() {
 
   const plus_ShoppingCartListItem = (index) => {
     let products = aplicationContext.context?.shoppingCart;
-    products = products.map( (item, i) => {
-      if(i === index) {
-        item.quantity += 1
+    products = products.map((item, i) => {
+      if (i === index) {
+        item.quantity += 1;
       }
-      return item
+      return item;
     });
     aplicationContext.setContext({
       user: aplicationContext.context.user,
@@ -41,18 +43,17 @@ function ShoppingCartList() {
 
   const minus_ShoppingCartListItem = (index) => {
     let products = aplicationContext.context?.shoppingCart;
-    products = products.map( (item, i) => {
-      if(i === index) {
-        item.quantity -= 1
+    products = products.map((item, i) => {
+      if (i === index) {
+        item.quantity -= 1;
       }
-      return item
+      return item;
     });
     aplicationContext.setContext({
       user: aplicationContext.context.user,
       shoppingCart: products,
     });
   };
-  
 
   //UPDADE QUATITY FUNCTION
   /*  const handleUpdateItem = (item, action) => {
@@ -72,7 +73,7 @@ function ShoppingCartList() {
       fetchData();
     });
   }; */
-  
+
   return (
     <>
       <Box
@@ -86,20 +87,23 @@ function ShoppingCartList() {
           minHeight: "308px",
           zIndex: "9999",
           top: "64px",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
         }}
       >
         <Box>
           <div>
             {aplicationContext.context?.shoppingCart?.map((p, index) => (
-              
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <IconButton
-                  onClick={() => removeShoppingCartListItem(index)}
-                  aria-label="delete"
-                  size="small"
-                >
-                  <DeleteIcon fontSize="inherit" />
-                </IconButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingTop: "4px",
+                }}
+              >
+                
                 <Box
                   component="img"
                   sx={{
@@ -113,33 +117,57 @@ function ShoppingCartList() {
                   alt="Product"
                   src={p.image}
                 />
-                <Typography variant="subtitle1" color="text.secondary">
-                  {p.name.length <= 15 ? p.name : p.name.substr(0, 8) + "..."}(
-                  {p.quantity})
+                <Typography
+                  sx={{ paddingLeft: "5px" }}
+                  variant="subtitle1"
+                  color="text.secondary"
+                >
+                  {p.name.length <= 15 ? p.name : p.name.substr(0, 11) + ".."}
                 </Typography>
-
-                {/* ***************************************************************** */}
-                <ButtonGroup sx={{ width: "10px" }}>
-                  <Button onClick={()=>minus_ShoppingCartListItem(index)}>
-                    <RemoveIcon />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    sx={{ padding: "0", minWidth: "35px" }}
+                    onClick={() => minus_ShoppingCartListItem(index)}
+                  >
+                    <RemoveCircleIcon sx={{ padding: 0, color: "primary" }} />
                   </Button>
-                  <Button onClick={()=>plus_ShoppingCartListItem(index)}>
-                    <AddIcon />
+                  {p.quantity}
+                  <Button
+                    sx={{ padding: "0", minWidth: "35px" }}
+                    onClick={() => plus_ShoppingCartListItem(index)}
+                  >
+                    <AddCircleIcon sx={{ color: "primary" }} />
                   </Button>
-                </ButtonGroup>
-                {/* ***************************************************************** */}
+                </Box>
+                <IconButton
+                  onClick={() => removeShoppingCartListItem(index)}
+                  aria-label="delete"
+                  size="small"
+                >
+                  <DeleteIcon fontSize="inherit" />
+                </IconButton>
               </Box>
             ))}
           </div>
         </Box>
-
-        <Typography variant="h6">
-          <span>Total: $</span>
-          {aplicationContext.context?.shoppingCart?.reduce(
-            (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.quantity),
-            0
-          )?.toFixed(2)}
-        </Typography>
+        <Box>
+          <Typography variant="h6">
+            <span>Total: $</span>
+            {aplicationContext.context?.shoppingCart
+              ?.reduce(
+                (accumulator, currentValue) =>
+                  accumulator + currentValue.price * currentValue.quantity,
+                0
+              )
+              ?.toFixed(2)}
+          </Typography>
+        </Box>
       </Box>
     </>
   );

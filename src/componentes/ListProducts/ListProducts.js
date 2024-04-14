@@ -8,6 +8,7 @@ import { Grid, TextField, CardActions, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import { CircularProgress } from "@mui/material";
 
 function ListProducts() {
   const [loading, setLoading] = useState(true);
@@ -61,7 +62,11 @@ function ListProducts() {
       />
       <Grid style={{ padding: 30 }} container spacing={4}>
         {loading ? (
-          <p>Carregando</p>
+          <div
+            className="loadingIcon"
+          >
+            <CircularProgress />
+          </div>
         ) : (
           data.map((item) => {
             return (
