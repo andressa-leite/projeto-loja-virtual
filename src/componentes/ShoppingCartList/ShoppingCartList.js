@@ -44,7 +44,7 @@ function ShoppingCartList() {
   const minus_ShoppingCartListItem = (index) => {
     let products = aplicationContext.context?.shoppingCart;
     products = products.map((item, i) => {
-      if (i === index) {
+      if (i === index && item.quantity > 0) {
         item.quantity -= 1;
       }
       return item;
@@ -78,7 +78,7 @@ function ShoppingCartList() {
     <>
       <Box
         style={{
-          width: "21%",
+          width: "25%",
           background: "whitesmoke",
           padding: "15px",
           position: "fixed",
@@ -103,7 +103,6 @@ function ShoppingCartList() {
                   paddingTop: "4px",
                 }}
               >
-                
                 <Box
                   component="img"
                   sx={{
@@ -118,7 +117,11 @@ function ShoppingCartList() {
                   src={p.image}
                 />
                 <Typography
-                  sx={{ paddingLeft: "5px" }}
+                  sx={{
+                    paddingLeft: "5px",
+                    width: "160px",
+                    textAlign: "left",
+                  }}
                   variant="subtitle1"
                   color="text.secondary"
                 >
@@ -132,7 +135,10 @@ function ShoppingCartList() {
                   }}
                 >
                   <Button
-                    sx={{ padding: "0", minWidth: "35px" }}
+                    sx={{
+                      padding: "0",
+                      minWidth: "35px",
+                    }}
                     onClick={() => minus_ShoppingCartListItem(index)}
                   >
                     <RemoveCircleIcon sx={{ padding: 0, color: "primary" }} />
@@ -149,6 +155,7 @@ function ShoppingCartList() {
                   onClick={() => removeShoppingCartListItem(index)}
                   aria-label="delete"
                   size="small"
+                  sx={{ background: "#dfdfdf", color: "#676767" }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

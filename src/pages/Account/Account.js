@@ -38,7 +38,7 @@ function Account() {
   const handleSubmit = 
   (event) => {
      event.preventDefault(); 
-      axios.put(`http://localhost:4200/api/users/${user._id}`, {
+      axios.put(`http://18.217.147.241:4200/api/users/${user._id}`, {
       email: user.email,
       name: user.name,
       image: user.image,

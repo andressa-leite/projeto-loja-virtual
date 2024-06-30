@@ -36,7 +36,7 @@ function CreateUser() {
     const data = new FormData(event.currentTarget);
 
     axios
-      .post("http://localhost:4200/api/users", {
+      .post("http://18.217.147.241:4200/api/users", {
         name: data.get("name"),
         email: data.get("email"),
         password: data.get("password"),

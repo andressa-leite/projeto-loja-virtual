@@ -21,7 +21,7 @@ function Login() {
     const data = new FormData(event.currentTarget);
 
     axios
-      .post("http://localhost:4200/api/users/login", {
+      .post("http://18.217.147.241:4200/api/users/login", {
         email: data.get("email"),
         password: data.get("password"),
       })
