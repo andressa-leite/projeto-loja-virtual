@@ -18,7 +18,7 @@ function ListProducts() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("http://api.andressaportfolio.com/api/products").then(
+    axios.get("https://api.andressaportfolio.com/api/products").then(
       (res) => {
         setData(res.data);
         console.log(res);
@@ -34,7 +34,7 @@ function ListProducts() {
   useEffect(() => {
     if (search) {
       setLoading(true);
-      axios.get(`http://api.andressaportfolio.com/api/products?search=${search}`).then(
+      axios.get(`https://api.andressaportfolio.com/api/products?search=${search}`).then(
         (res) => {
           setData(res.data);
           console.log(res);

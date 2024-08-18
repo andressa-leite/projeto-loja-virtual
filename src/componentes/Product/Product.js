@@ -12,7 +12,7 @@ function Product() {
   let { id } = useParams();
 
   useEffect(() => {
-    axios.get("http://api.andressaportfolio.com/api/products/" + id).then(
+    axios.get("https://api.andressaportfolio.com/api/products/" + id).then(
       (res) => {
         setData(res.data);
         console.log(res);
